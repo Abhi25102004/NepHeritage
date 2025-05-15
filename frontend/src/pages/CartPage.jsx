@@ -4,16 +4,24 @@ import { motion } from "framer-motion";
 import { ShoppingCart } from "lucide-react";
 import CartItem from "../components/CartItem";
 
-
 const CartPage = () => {
 	const { cart } = useCartStore();
 
 	return (
-		<div className='py-8 md:py-16'>
-			<div className='mx-auto max-w-screen-xl px-4 2xl:px-0'>
-				<div className='mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8'>
+		<div className='bg-fashion-beige min-h-screen py-10 px-4'>
+			<div className='max-w-6xl mx-auto'>
+				<motion.h2
+					className='text-3xl md:text-4xl font-bold text-center text-fashion-charcoal mb-12'
+					initial={{ opacity: 0, y: -10 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.6 }}
+				>
+					Your Shopping Cart
+				</motion.h2>
+
+				<div className='flex flex-col lg:flex-row gap-8'>
 					<motion.div
-						className='mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl'
+						className='w-full lg:w-2/3 space-y-6'
 						initial={{ opacity: 0, x: -20 }}
 						animate={{ opacity: 1, x: 0 }}
 						transition={{ duration: 0.5, delay: 0.2 }}
@@ -27,18 +35,15 @@ const CartPage = () => {
 								))}
 							</div>
 						)}
-						{cart.length > 0 && <PeopleAlsoBought />}
 					</motion.div>
 
 					{cart.length > 0 && (
 						<motion.div
-							className='mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full'
+							className='w-full lg:w-1/3 space-y-6'
 							initial={{ opacity: 0, x: 20 }}
 							animate={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.5, delay: 0.4 }}
+							transition={{ duration: 0.5, delay: 0.3 }}
 						>
-							<OrderSummary />
-							<GiftCouponCard />
 						</motion.div>
 					)}
 				</div>
@@ -46,23 +51,24 @@ const CartPage = () => {
 		</div>
 	);
 };
+
 export default CartPage;
 
 const EmptyCartUI = () => (
 	<motion.div
-		className='flex flex-col items-center justify-center space-y-4 py-16'
+		className='flex flex-col items-center justify-center rounded-xl bg-white border border-gray-200 px-6 py-16 text-center shadow-sm'
 		initial={{ opacity: 0, y: 20 }}
 		animate={{ opacity: 1, y: 0 }}
 		transition={{ duration: 0.5 }}
 	>
-		<ShoppingCart className='h-24 w-24 text-gray-300' />
-		<h3 className='text-2xl font-semibold '>Your cart is empty</h3>
-		<p className='text-gray-400'>Looks like you {"haven't"} added anything to your cart yet.</p>
+		<ShoppingCart className='h-20 w-20 text-gray-300 mb-4' />
+		<h3 className='text-2xl font-semibold text-gray-800'>Your cart is empty</h3>
+		<p className='text-gray-500 mt-2'>Looks like you haven’t added anything yet.</p>
 		<Link
-			className='mt-4 rounded-md bg-emerald-500 px-6 py-2 text-white transition-colors hover:bg-emerald-600'
 			to='/'
+			className='mt-6 inline-block rounded-full bg-fashion-charcoal px-6 py-2 text-white text-sm font-medium hover:bg-gray-900 transition'
 		>
-			Start Shopping
+			Continue Shopping
 		</Link>
 	</motion.div>
 );

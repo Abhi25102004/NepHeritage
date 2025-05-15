@@ -8,8 +8,8 @@ import ProductsList from "../components/ProductsList";
 import { useProductStore } from "../stores/useProductStore";
 
 const tabs = [
-	{ id: "create", label: "Create Product", icon: PlusCircle },
-	{ id: "products", label: "Products", icon: ShoppingBasket },
+	{ id: "create", label: "Add Product", icon: PlusCircle },
+	{ id: "products", label: "Product List", icon: ShoppingBasket },
 	{ id: "analytics", label: "Analytics", icon: BarChart },
 ];
 
@@ -22,10 +22,10 @@ const AdminPage = () => {
 	}, [fetchAllProducts]);
 
 	return (
-		<div className='min-h-screen relative overflow-hidden'>
-			<div className='relative z-10 container mx-auto px-4 py-16'>
+		<div className='min-h-screen bg-fashion-beige py-16 px-4'>
+			<div className='max-w-5xl mx-auto'>
 				<motion.h1
-					className='text-4xl font-bold mb-8 text-emerald-400 text-center'
+					className='text-4xl font-bold text-center text-fashion-charcoal mb-10'
 					initial={{ opacity: 0, y: -20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
@@ -33,27 +33,34 @@ const AdminPage = () => {
 					Admin Dashboard
 				</motion.h1>
 
-				<div className='flex justify-center mb-8'>
-					{tabs.map((tab) => (
-						<button
-							key={tab.id}
-							onClick={() => setActiveTab(tab.id)}
-							className={`flex items-center px-4 py-2 mx-2 rounded-md transition-colors duration-200 ${
-								activeTab === tab.id
-									? "bg-emerald-600 text-white"
-									: "bg-gray-700 text-gray-300 hover:bg-gray-600"
-							}`}
-						>
-							<tab.icon className='mr-2 h-5 w-5' />
-							{tab.label}
-						</button>
-					))}
+				<div className='flex justify-center mb-10'>
+					{tabs.map((tab) => {
+						const Icon = tab.icon;
+						return (
+							<button
+								key={tab.id}
+								onClick={() => setActiveTab(tab.id)}
+								className={`flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium shadow-sm transition
+									${activeTab === tab.id
+										? "bg-fashion-charcoal text-white"
+										: "bg-white border border-gray-300 text-gray-700 hover:bg-gray-100"
+									}`}
+							>
+								<Icon className='h-5 w-5' />
+								{tab.label}
+							</button>
+						);
+					})}
 				</div>
-				{activeTab === "create" && <CreateProductForm />}
-				{activeTab === "products" && <ProductsList />}
-				{activeTab === "analytics" && <AnalyticsTab />}
+
+				<div className='bg-white shadow rounded-xl p-6 border border-gray-200'>
+					{activeTab === "create" && <CreateProductForm />}
+					{activeTab === "products" && <ProductsList />}
+					{activeTab === "analytics" && <AnalyticsTab />}
+				</div>
 			</div>
 		</div>
 	);
 };
+
 export default AdminPage;
